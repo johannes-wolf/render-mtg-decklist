@@ -1,0 +1,5 @@
+typst
+mtg_parser
+requests
+httpx
+json
