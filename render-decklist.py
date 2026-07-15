@@ -80,7 +80,7 @@ def render_decklist(mainboard, sideboard, name, date, score, output):
     images = typst.compile("./template.typ",
                            output=output or "decklist.png",
                            format="png",
-                           ppi=80,
+                           ppi=25.4,
                            sys_inputs=inputs)
 
 
@@ -97,5 +97,9 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
 
     mainboard, sideboard = load_decklist(args["filename"])
+    #with open("mainboard.json", "w") as f:
+    #  f.write(json.dumps(mainboard))
+    #with open("sideboard.json", "w") as f:
+    #  f.write(json.dumps(sideboard))
 
     render_decklist(mainboard, sideboard, args["name"], args["date"], args["score"], args["output"])
