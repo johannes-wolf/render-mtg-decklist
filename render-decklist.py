@@ -67,7 +67,7 @@ def load_decklist(decklist):
     return sort_lands_back(mainboard), sort_lands_back(sideboard)
 
 
-def render_decklist(mainboard, sideboard, name, date, score, output):
+def render_decklist(mainboard, sideboard, name, date, score, output=None):
     inputs = {
         "name": "My Deck",
         "mainboard": json.dumps(mainboard),
@@ -93,13 +93,20 @@ if __name__ == "__main__":
     parser.add_argument("-n", "--name")
     parser.add_argument("-s", "--score")
     parser.add_argument("-o", "--output")
+    parser.add_argument("-D", "--debug", action="store_true")
 
     args = vars(parser.parse_args())
 
     mainboard, sideboard = load_decklist(args["filename"])
-    #with open("mainboard.json", "w") as f:
-    #  f.write(json.dumps(mainboard))
-    #with open("sideboard.json", "w") as f:
-    #  f.write(json.dumps(sideboard))
+    if args["debug"]:
+      with open("mainboard.json", "w") as f:
+        f.write(json.dumps(mainboard))
+      with open("sideboard.json", "w") as f:
+        f.write(json.dumps(sideboard))
 
-    render_decklist(mainboard, sideboard, args["name"], args["date"], args["score"], args["output"])
+    render_decklist(mainboard,
+                    sideboard,
+                    args["name"],
+                    args["date"],
+                    args["score"],
+                    output=args["output"])

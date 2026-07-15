@@ -1,7 +1,15 @@
 #import "@preview/cetz:0.5.2"
 
-#let mainboard = json(bytes(sys.inputs.at("mainboard")))
-#let sideboard = json(bytes(sys.inputs.at("sideboard")))
+#let mainboard = if "mainboard" in sys.inputs {
+  json(bytes(sys.inputs.at("mainboard")))
+} else {
+  json("mainboard.json")
+}
+#let sideboard = if "sideboard" in sys.inputs {
+  json(bytes(sys.inputs.at("sideboard")))
+} else {
+  json("sideboard.json")
+}
 #let score = sys.inputs.at("score", default: "0-0-0")
 #let deckname = sys.inputs.at("name", default: "My Deck")
 #let date = sys.inputs.at("date", default: "01/01/2026")
